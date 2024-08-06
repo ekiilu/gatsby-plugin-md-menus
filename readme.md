@@ -69,17 +69,7 @@ const config = {
 
 For the plugin to work correctly, your content folder should have Markdown files and corresponding directories that match the parent Markdown files. Here is an example structure:
 
-
-content
-  ├── introduction.md
-  ├── introduction
-  │   ├── subcontent1.md
-  │   └── subcontent2.md
-  ├── key-concepts.md
-  └── key-concepts
-      ├── concept1.md
-      └── concept2.md
-
+![Content](https://raw.githubusercontent.com/ekiilu/gatsby-plugin-md-menus/main/assets/directory.png)
 - **introduction** folder
 
 - Contains subcontent related to `introduction.md`.
