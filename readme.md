@@ -54,6 +54,11 @@ const config = {
       '/key-concepts',
     ],
   },
+  //This is optional 
+  gatsby:{
+    pathPrefix: "/", // default is '/'
+    trailingSlash: false // Default is false 
+  }
 };
 ```
   
@@ -81,7 +86,27 @@ content
 ## Usage
 
 Once the configuration is in place and your content is organized, the plugin will automatically generate the hierarchical menu based on the specified order and collapsed items.
-  
+## Using the Menu Component
+
+To render the menu in your Gatsby site, you can import and use the Menu component provided by the plugin in your React components. Here's an example of how to do this:
+
+```
+import React, { useState } from 'react';
+import Menu from 'gatsby-plugin-md-menus/menu';
+
+const Sidebar = ({setMenu}) => {
+
+  return (
+    <div className="sidebar">
+     
+      <Menu onClickMenuItem={setMenu} />
+    </div>
+  );
+};
+
+export default Sidebar;
+```
+
 ## Contributing
 We welcome contributions! Please feel free to submit issues, fork the repository, and make pull requests
 

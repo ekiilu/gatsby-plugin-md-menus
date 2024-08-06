@@ -4,12 +4,8 @@ import { usePluginOptions } from "../context";
 import Tree from "./tree";
 import Divider from "./Divider";
 const Menu = (props) => {
-  console.log("PROPS", props)
   const { config } = usePluginOptions();
-  const { setMenu } = props;
-  console.log("SIDEMENU", config)
-
-
+  const { onMenuClick = null } = props;
   const data = useStaticQuery(graphql`
       query {
         allMdx {
@@ -29,7 +25,7 @@ const Menu = (props) => {
 
   return (
     <div>
-      <Tree edges={allMdx.edges} setMenu={setMenu} />
+      <Tree edges={allMdx.edges} setMenu={onMenuClick} />
       {config.sidebar.links && config.sidebar.links.length > 0 && <Divider />}
     </div>
 

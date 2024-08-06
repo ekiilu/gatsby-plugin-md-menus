@@ -6,6 +6,8 @@ import { usePluginOptions } from '../context';
 const TreeNode = ({ className = '', setCollapsed, collapsed, url, title, setMenu, items, ...rest }) => {
   const isCollapsed = collapsed[url];
   const { config } = usePluginOptions();
+  const { gatsby = null } = config;
+  const pathPrefix = gatsby && gatsby.pathPrefix || '/';
 
   const collapse = () => {
     setCollapsed(url);
@@ -19,7 +21,7 @@ const TreeNode = ({ className = '', setCollapsed, collapsed, url, title, setMenu
     location = document.location;
   }
   const active =
-    location && (location.pathname === url || location.pathname === config.gatsby.pathPrefix + url);
+    location && (location.pathname === url || location.pathname === pathPrefix + url);
 
   const calculatedClassName = `${className} item ${active ? 'active' : ''}  ${!isCollapsed && hasChildren ? 'selected' : ''}`;
 

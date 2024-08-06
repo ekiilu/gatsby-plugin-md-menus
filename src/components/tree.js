@@ -1,8 +1,12 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import TreeNode from './treeNode';
 import { usePluginOptions } from "../context";
 
 const calculateTreeData = (edges, config) => {
+
+  const { gatsby } = config;
+  const trailingSlash = gatsby && gatsby.trailingSlash || false;
+
   const originalData = config.sidebar.ignoreIndex
     ? edges
       .filter(({ node }) => node.fields != null)
@@ -29,7 +33,7 @@ const calculateTreeData = (edges, config) => {
       let { items: prevItems } = accu;
 
       const slicedParts =
-        config.gatsby && config.gatsby.trailingSlash ? parts.slice(1, -2) : parts.slice(1, -1);
+        trailingSlash ? parts.slice(1, -2) : parts.slice(1, -1);
 
       for (const part of slicedParts) {
         let tmp = prevItems && prevItems.find(({ label }) => label === part);
@@ -45,7 +49,7 @@ const calculateTreeData = (edges, config) => {
         prevItems = tmp.items;
       }
       const slicedLength =
-        config.gatsby && config.gatsby.trailingSlash ? parts.length - 2 : parts.length - 1;
+        trailingSlash ? parts.length - 2 : parts.length - 1;
 
       const existingItem = prevItems.find(({ label }) => label === parts[slicedLength]);
 
