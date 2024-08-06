@@ -12,12 +12,15 @@ You can install the `gatsby-plugin-md-menus` via npm or yarn:
 
 # Using npm
 
+```bash
 npm  install  gatsby-plugin-md-menus
+```
   
 # Using yarn
 
+```bash
 yarn  add  gatsby-plugin-md-menus
-
+```
 ##Configuration
 
 
