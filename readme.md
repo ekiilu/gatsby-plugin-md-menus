@@ -32,11 +32,27 @@ module.exports = {
     {
       resolve: 'gatsby-plugin-md-menus',
       options: {
-        config,
-      },
-    },
+        config: {
+          sidebar: {
+            forcedNavOrder: [
+              '/introduction', // Order of menu items
+              '/key-concepts',
+            ],
+            collapsedNav: [
+              '/introduction', // Menu items to collapse
+              '/key-concepts',
+            ],
+          },
+          //This is optional 
+          gatsby:{
+            pathPrefix: "/", // default is '/'
+            trailingSlash: false // Default is false 
+          }
+        }
+      }
+    }
     // other plugins
-  ],
+  ]
 };
 ```
   
