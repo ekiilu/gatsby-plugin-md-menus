@@ -26,7 +26,11 @@ const Menu = (props) => {
   return (
     <div>
       <Tree edges={allMdx.edges} setMenu={onMenuClick} />
-      {config.sidebar.links && config.sidebar.links.length > 0 && <Divider />}
+      {
+        config.sidebar.links &&
+        config.sidebar.links.length > 0 &&
+        <Divider />
+      }
     </div>
 
 
