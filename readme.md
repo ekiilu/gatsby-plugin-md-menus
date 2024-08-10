@@ -101,15 +101,12 @@ To render the menu in your Gatsby site, you can import and use the Menu componen
 
 ```
 import React, { useState } from 'react';
-import Menu from 'gatsby-plugin-md-menus/menu';
+import Sidemenu from 'gatsby-plugin-md-menus/sidemenu';
 
 const Sidebar = ({setMenu}) => {
 
   return (
-    <div className="sidebar">
-     
-      <Menu onClickMenuItem={setMenu} />
-    </div>
+    <Sidemenu onClickMenuItem={setMenu} />
   );
 };
 
