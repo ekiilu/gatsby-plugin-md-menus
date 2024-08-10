@@ -2,7 +2,7 @@
   "name": "gatsby-plugin-md-menus",
   "main": "dist/gatsby-plugin-md-menus.cjs.js",
   "module": "dist/gatsby-plugin-md-menus.esm.js",
-  "version": "0.0.9",
+  "version": "0.0.10",
   "description": "gatsby-plugin-md-menus",
   "repository": "ekiilu/gatsby-plugin-md-menus",
   "license": "MIT",
@@ -21,7 +21,7 @@
   },
   "peerDependencies": {
     "gatsby": "^4.0.0",
-    "styled-components": "^5.3.0"
+    "@emotion/react": ">=11.0.0"
   },
   "gitHead": "b7d013729b2c11d75020569d91d8f4015ad869bf",
   "keywords": [
