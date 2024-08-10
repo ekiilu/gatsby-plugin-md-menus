@@ -1,3 +1,11 @@
 test:hover {
   background-color: transparent;
 }
+
+.nestedLevel>ul>li:nth-last-child(2) {
+  display: block
+}
+
+.nestedLevel>ul>li:last-child {
+  display: block
+}
