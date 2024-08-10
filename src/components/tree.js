@@ -1,152 +1,136 @@
 import React, { useState } from 'react';
 import TreeNode from './treeNode';
-import { usePluginOptions } from "../context";
+import { usePluginOptions } from '../context';
 
+// Function to enhance forcedNavOrder by adding base paths if necessary
+function enhanceForcedNavOrder(forcedNavOrder) {
+  const basePaths = new Set();
+  const enhancedOrder = [];
+
+  forcedNavOrder.forEach(path => {
+    const segments = path.split('/');
+    if (segments.length > 2) {
+      basePaths.add(`/${segments[1]}`);
+    }
+    enhancedOrder.push(path);
+  });
+
+  // Add the base paths at the correct position if they are not already in the forcedNavOrder
+  basePaths.forEach(basePath => {
+    if (!enhancedOrder.includes(basePath)) {
+      const lastIndex = enhancedOrder
+        .map(path => path.startsWith(basePath))
+        .lastIndexOf(true);
+      enhancedOrder.splice(lastIndex + 1, 0, basePath);
+    }
+  });
+
+  return enhancedOrder;
+}
+
+// Function to calculate tree data structure
 const calculateTreeData = (edges, config) => {
-
   const { gatsby } = config;
-  const trailingSlash = gatsby && gatsby.trailingSlash || false;
+  const trailingSlash = gatsby?.trailingSlash || false;
 
-  const originalData = config.sidebar.ignoreIndex
-    ? edges
-      .filter(({ node }) => node.fields != null)
-      .filter(
-        ({
-          node: {
-            fields: { slug },
-          },
-        }) => slug !== '/'
-      )
+  const filteredData = config.sidebar.ignoreIndex
+    ? edges.filter(({ node }) => node.fields && node.fields.slug !== '/')
     : edges;
 
-  const tree = originalData.reduce(
-    (
-      accu,
-      {
-        node: {
-          fields: { slug, title },
-        },
-      }
-    ) => {
-      const parts = slug.split('/');
-
-      let { items: prevItems } = accu;
-
-      const slicedParts =
-        trailingSlash ? parts.slice(1, -2) : parts.slice(1, -1);
-
-      for (const part of slicedParts) {
-        let tmp = prevItems && prevItems.find(({ label }) => label === part);
-
-        if (tmp) {
-          if (!tmp.items) {
-            tmp.items = [];
-          }
-        } else {
-          tmp = { label: part, items: [] };
-          prevItems.push(tmp);
-        }
-        prevItems = tmp.items;
-      }
-      const slicedLength =
-        trailingSlash ? parts.length - 2 : parts.length - 1;
-
-      const existingItem = prevItems.find(({ label }) => label === parts[slicedLength]);
-
-      if (existingItem) {
-        existingItem.url = slug;
-        existingItem.title = title;
-      } else {
-        prevItems.push({
-          label: parts[slicedLength],
-          url: slug,
-          items: [],
-          title
-        });
-      }
-      return accu;
-    },
-    { items: [] }
-  );
-
-  const {
-    sidebar: { forcedNavOrder = [] },
-  } = config;
-
-  const tmp = [...forcedNavOrder];
-
-  if (config.gatsby && config.gatsby.trailingSlash) {
-  }
-  tmp.reverse();
-  return tmp.reduce((accu, slug) => {
+  const tree = filteredData.reduce((accu, { node: { fields: { slug, title } } }) => {
     const parts = slug.split('/');
-
     let { items: prevItems } = accu;
 
-    const slicedParts =
-      config.gatsby && config.gatsby.trailingSlash ? parts.slice(1, -2) : parts.slice(1, -1);
+    const slicedParts = trailingSlash ? parts.slice(1, -2) : parts.slice(1, -1);
 
-    for (const part of slicedParts) {
-      let tmp = prevItems.find((item) => item && item.label === part);
-
-      if (tmp) {
-        if (!tmp.items) {
-          tmp.items = [];
-        }
-      } else {
+    slicedParts.forEach(part => {
+      let tmp = prevItems.find(({ label }) => label === part);
+      if (!tmp) {
         tmp = { label: part, items: [] };
         prevItems.push(tmp);
       }
-      if (tmp && tmp.items) {
-        prevItems = tmp.items;
-      }
-    }
-    // sort items alphabetically.
-    prevItems.map((item) => {
-      item.items = item.items.sort(function (a, b) {
-        if (a.label < b.label) return -1;
-        if (a.label > b.label) return 1;
-        return 0;
-      });
-      return false;
+      prevItems = tmp.items;
     });
-    const slicedLength =
-      config.gatsby && config.gatsby.trailingSlash ? parts.length - 2 : parts.length - 1;
 
-    const index = prevItems.findIndex(({ label }) => label === parts[slicedLength]);
+    const lastPart = trailingSlash ? parts.length - 2 : parts.length - 1;
+    const existingItem = prevItems.find(({ label }) => label === parts[lastPart]);
 
-    if (prevItems.length) {
-      accu.items.unshift(prevItems.splice(index, 1)[0]);
+    if (existingItem) {
+      existingItem.url = slug;
+      existingItem.title = title;
+    } else {
+      prevItems.push({ label: parts[lastPart], url: slug, items: [], title });
     }
+
     return accu;
-  }, tree);
+  }, { items: [] });
+
+  return tree;
 };
+
+// Function to find the order index for sorting
+function getOrderIndex(url, forcedNavOrder, level) {
+  return forcedNavOrder.findIndex(orderUrl => {
+    if (level >= 3) {
+      const result = orderUrl.split('/').slice(0, level).join('/');
+      return url === result;
+    }
+    return url === orderUrl;
+  });
+}
+
+
+// Function to generate a sorted array based on forcedNavOrder
+function generateSortedItems(items, forcedNavOrder, level = 2) {
+  return items
+    .map(item => {
+      const newItem = { ...item };
+      if (newItem.items?.length > 0) {
+
+
+        const miscPaths = forcedNavOrder.filter(path => path.startsWith(newItem.url));
+
+        newItem.items = generateSortedItems(newItem.items, miscPaths, level + 1);
+      }
+      return newItem;
+    })
+    .sort((a, b) => {
+      const indexA = getOrderIndex(a.url, forcedNavOrder, level);
+      const indexB = getOrderIndex(b.url, forcedNavOrder, level);
+
+
+      // Ensure that items not found in forcedNavOrder are placed at the end
+      const orderA = indexA === -1 ? Number.MAX_SAFE_INTEGER : indexA;
+      const orderB = indexB === -1 ? Number.MAX_SAFE_INTEGER : indexB;
+
+      return orderA - orderB;
+    });
+}
 
 const Tree = ({ edges, setMenu }) => {
   const { config } = usePluginOptions();
 
-  let [treeData] = useState(() => {
-    return calculateTreeData(edges, config);
-  });
-
-  const defaultCollapsed = {};
+  // Enhance the forcedNavOrder with base paths if necessary
+  const enhancedForcedNavOrder = enhanceForcedNavOrder(config.sidebar.forcedNavOrder);
 
 
-  treeData.items.forEach((item) => {
-    if (config.sidebar.collapsedNav && config.sidebar.collapsedNav.includes(item.url)) {
-      defaultCollapsed[item.url] = true;
-    } else {
-      defaultCollapsed[item.url] = false;
-    }
-  });
+  const treeData = calculateTreeData(edges, config);
+
+  const sortedItems = generateSortedItems(treeData.items, enhancedForcedNavOrder);
+
+
+  const defaultCollapsed = sortedItems.reduce((acc, item) => {
+    acc[item.url] = config.sidebar.collapsedNav?.includes(item.url) || false;
+    return acc;
+  }, {});
+
   const [collapsed, setCollapsed] = useState(defaultCollapsed);
 
   const toggle = (url) => {
-    setCollapsed({
-      ...defaultCollapsed,
-      [url]: !collapsed[url],
-    });
-    console.log(collapsed)
+    setCollapsed(prev => ({
+      ...prev,
+      [url]: !prev[url],
+    }));
   };
 
   return (
@@ -155,7 +139,7 @@ const Tree = ({ edges, setMenu }) => {
       setCollapsed={toggle}
       collapsed={collapsed}
       setMenu={setMenu}
-      {...treeData}
+      items={sortedItems}
     />
   );
 };

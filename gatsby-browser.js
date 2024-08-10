@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { PluginOptionsProvider } from './src/context';
-
+import "./src/styles.css";
 export const wrapRootElement = ({ element }, pluginOptions) => {
 
   return (
