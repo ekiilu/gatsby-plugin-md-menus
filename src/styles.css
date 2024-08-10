@@ -2,10 +2,10 @@ test:hover {
   background-color: transparent;
 }
 
-.nestedLevel>ul>li:nth-last-child(2) {
-  display: block
+.firstLevel>ul>li:nth-last-child(2) {
+  display: block !important;
 }
 
-.nestedLevel>ul>li:last-child {
-  display: block
+.firstLevel>ul>li:last-child {
+  display: block !important;
 }
