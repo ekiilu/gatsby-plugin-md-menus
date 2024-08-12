@@ -1,9 +1,9 @@
 import React from "react";
 import useNav from '../src/hooks/useNav';
 
-const Navigation = ({ mdx = null, children }) => {
+const Navigation = ({ mdx, children }) => {
   const nav = useNav();
-  if (!nav || !mdx) {
+  if (!nav) {
     return null;
   }
   if (children) {
