@@ -30,14 +30,17 @@ const TreeNode = ({ className = '', setCollapsed, collapsed, url, title, setMenu
     <li className={`${calculatedClassName} ${hasChildren ? "nestedLevel" : ""}`} style={{ listStyle: "none" }}>
       {title && (
         <Link to={url} onClick={setMenu ? setMenu : false}>
-          <span onClick={collapse} className='nestedChild' style={{ display: "flex", flexDirection: "row", gap: "10" }}>
+          <span onClick={collapse} className='nestedChild'
+            style={{ display: "flex", flexDirection: "row", gap: "20" }}>
+
+            {title}
 
             {level > 1 && hasChildren &&
-              <button aria-label="collapse" className="collapser" style={{ backgroundColor: "transparent" }}>
+              <button aria-label="collapse"
+                className="collapser" style={{ backgroundColor: "transparent", marginLeft: "10px" }}>
                 {!isCollapsed ? <ClosedSvg /> : <OpenedSvg />}
               </button>
             }
-            {title}
           </span>
 
           {!config.sidebar.frontLine && title && hasChildren ? (
