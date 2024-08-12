@@ -35,13 +35,9 @@ const TreeNode = ({ className = '', setCollapsed, collapsed, url, title, setMenu
             {level > 1 && hasChildren &&
               <button aria-label="collapse" className="collapser" style={{ backgroundColor: "transparent" }}>
                 {!isCollapsed ? <ClosedSvg /> : <OpenedSvg />}
-
               </button>
-
             }
-
             {title}
-
           </span>
 
           {!config.sidebar.frontLine && title && hasChildren ? (
