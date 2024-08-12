@@ -1,6 +1,8 @@
 // Function to calculate tree data structure
 const calculateTreeData = (edges, config) => {
-  const { gatsby } = config;
+  const { gatsby = {
+    trailingSlash: false
+  } } = config;
   const trailingSlash = gatsby?.trailingSlash || false;
 
   const filteredData = config.sidebar.ignoreIndex
