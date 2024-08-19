@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import OpenedSvg from '../images/opened';
 import ClosedSvg from '../images/closed';
 import Link from './link';
@@ -8,6 +8,14 @@ const TreeNode = ({ className = '', setCollapsed, collapsed, url, title, setMenu
   const { config } = usePluginOptions();
   const { gatsby = null } = config;
   const pathPrefix = gatsby && gatsby.pathPrefix || '/';
+
+  /* submenu default collapse */
+
+  useEffect(() => {
+    if (level > 1) {
+      setCollapsed(url);
+    }
+  }, []);
 
   const collapse = () => {
     setCollapsed(url);
