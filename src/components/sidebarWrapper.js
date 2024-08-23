@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 
 
-const sidebarWrapper = styled('aside')`
+const SidebarWrapper = styled('aside')`
   width: 100%;
   height: calc(100% - 60px);
   overflow: auto;
@@ -74,4 +74,4 @@ const sidebarWrapper = styled('aside')`
 `;
 
 
-export default sidebarWrapper;
+export default SidebarWrapper;
