@@ -135,7 +135,7 @@ leftSideBar: {
   iconNormal: 'white',     // The color of the icons in the side menu.
   iconHover: '#7CC9CD',    // The color of the icons in the side menu when hovered.
 }
-
+```
 ## Contributing
 We welcome contributions! Please feel free to submit issues, fork the repository, and make pull requests
 
