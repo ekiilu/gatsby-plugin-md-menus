@@ -113,20 +113,14 @@ const Sidebar = ({setMenu}) => {
 export default Sidebar;
 ```
 
-## Contributing
-We welcome contributions! Please feel free to submit issues, fork the repository, and make pull requests
+### Theme Configuration
 
-## License
-This project is licensed under the MIT License - see the LICENSE file for details.
-
-### Theme Configuration for Gatsby GitBook Theme
-
-This configuration allows you to customize the appearance of the side navigation menu and the left sidebar in the Gatsby GitBook theme.
+This configuration allows you to customize the appearance of the side navigation menu and the left sidebar.
 
 
-The configuration file for the GitBook theme can be found at:  
+The configuration file can be found at:  
 
-`/src/components/theme/index.js`
+`ROOT_DIRECTORY/src/components/theme/index.js`
 
 ```javascript
 section: {
@@ -141,3 +135,9 @@ leftSideBar: {
   iconNormal: 'white',     // The color of the icons in the side menu.
   iconHover: '#7CC9CD',    // The color of the icons in the side menu when hovered.
 }
+
+## Contributing
+We welcome contributions! Please feel free to submit issues, fork the repository, and make pull requests
+
+## License
+This project is licensed under the MIT License - see the LICENSE file for details.

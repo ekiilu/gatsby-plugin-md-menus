@@ -2,7 +2,7 @@
   "name": "gatsby-plugin-md-menus",
   "main": "dist/gatsby-plugin-md-menus.cjs.js",
   "module": "dist/gatsby-plugin-md-menus.esm.js",
-  "version": "0.0.26",
+  "version": "0.0.27",
   "description": "gatsby-plugin-md-menus",
   "repository": "ekiilu/gatsby-plugin-md-menus",
   "license": "MIT",
