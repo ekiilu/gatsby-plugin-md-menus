@@ -123,11 +123,6 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 
 This configuration allows you to customize the appearance of the side navigation menu and the left sidebar in the Gatsby GitBook theme.
 
-### Theme Configuration for Gatsby GitBook Theme
-
-### Theme Configuration for Gatsby GitBook Theme
-
-This configuration allows you to customize the appearance of the side navigation menu and the left sidebar in the Gatsby GitBook theme.
 
 The configuration file for the GitBook theme can be found at:  
 
