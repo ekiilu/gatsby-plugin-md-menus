@@ -49,16 +49,22 @@ const SidebarWrapper = styled('aside')`
     padding-bottom: 5px;
     
   }
+    
   .firstLevel > ul > li > ul > li.nestedLevel:hover{
-    background-color:transparent;  
+    background-color:${({ menuHover = "blue" }) => menuHover};  
+    
   }
+   .firstLevel > ul > li > ul > li.nestedLevel:hover .navbutton svg path {
+    fill: ${({ iconHover }) => iconHover}; /* Change fill color on hover */
+  }
+
 
   .firstLevel > ul > li > ul > li > ul > li {
     margin-left: 30px; 
   }
 
   .firstLevel > ul > li > ul > li.nestedLevel > ul li{
-    padding-left: 10;
+    padding-left: 0;
     padding-top: 5px;
     padding-bottom: 5px;
     border-top: ${({ navActive = "blue" }) => navActive} 1px solid;
@@ -71,7 +77,11 @@ const SidebarWrapper = styled('aside')`
     padding-bottom: 5px;
     background-color: ${({ menuHover = "transparent" }) => menuHover};  
   }
-`;
+  
+
+  .navbutton svg path {
+    fill: ${({ iconNormal }) => iconNormal};
+  }`;
 
 
 export default SidebarWrapper;

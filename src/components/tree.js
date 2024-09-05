@@ -25,6 +25,7 @@ const Tree = ({ edges, setMenu }) => {
 
   const [collapsed, setCollapsed] = useState(defaultCollapsed);
 
+
   const toggle = (url) => {
     setCollapsed(prev => ({
       ...prev,

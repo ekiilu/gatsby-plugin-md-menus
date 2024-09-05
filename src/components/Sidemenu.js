@@ -53,7 +53,10 @@ const Sidemenu = (props) => {
   return (
     <SidebarWrapper
       menuHover={theme.leftSideBar.menuHover}
-      navActive={theme.section.navActive}>
+      navActive={theme.section.navActive}
+      iconNormal={theme.leftSideBar.iconNormal}
+      iconHover={theme.leftSideBar.iconHover}
+    >
       <Tree edges={allMdx.edges} setMenu={onMenuClick} />
       {
         config.sidebar.links &&
