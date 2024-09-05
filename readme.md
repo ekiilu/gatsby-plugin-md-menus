@@ -118,3 +118,31 @@ We welcome contributions! Please feel free to submit issues, fork the repository
 
 ## License
 This project is licensed under the MIT License - see the LICENSE file for details.
+
+### Theme Configuration for Gatsby GitBook Theme
+
+This configuration allows you to customize the appearance of the side navigation menu and the left sidebar in the Gatsby GitBook theme.
+
+### Theme Configuration for Gatsby GitBook Theme
+
+### Theme Configuration for Gatsby GitBook Theme
+
+This configuration allows you to customize the appearance of the side navigation menu and the left sidebar in the Gatsby GitBook theme.
+
+The configuration file for the GitBook theme can be found at:  
+
+`/src/components/theme/index.js`
+
+```javascript
+section: {
+  navActiveCol: '#001933', // The text color of an active side menu item.
+  navChildCol: 'white',    // The text color of an inactive side menu item.
+},
+
+leftSideBar: {
+  catTitle: '#004C48',     // The text color of the category title.
+  menuHover: '#004C48',    // The background color of a side menu item when hovered.
+  menuActive: '#09A4A7',   // The background color of the active side menu item.
+  iconNormal: 'white',     // The color of the icons in the side menu.
+  iconHover: '#7CC9CD',    // The color of the icons in the side menu when hovered.
+}
